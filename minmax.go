@@ -61,3 +61,19 @@ var (
 	_ Interface = IntSlice(nil)
 	_ Interface = StringSlice(nil)
 )
+
+func MinInt(vs ...int) int {
+	min := IndexOfMin(IntSlice(vs))
+	if min == -1 {
+		panic("minmax: MinInt has no parameters")
+	}
+	return vs[min]
+}
+
+func MaxInt(vs ...int) int {
+	max := IndexOfMax(IntSlice(vs))
+	if max == -1 {
+		panic("minmax: MaxInt has no parameters")
+	}
+	return vs[max]
+}
