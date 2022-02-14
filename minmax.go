@@ -1,79 +1,58 @@
 package minmax
 
+import "sort"
+
+func _() {
+	var a sort.Interface
+	var _ Interface = a
+}
+
 type Interface interface {
 	Len() int
 	Less(i, j int) bool
 }
 
-func IndexOfMin(v Interface) (min int) {
+func IndexOfMin(v Interface) (index int, ok bool) {
 	n := v.Len()
-	if n == 0 {
-		return -1
+	if n < 1 {
+		return 0, false
 	}
+	index = 0
 	for i := 1; i < n; i++ {
-		if v.Less(i, min) {
-			min = i
+		if v.Less(i, index) {
+			index = i
 		}
 	}
-	return
+	return index, true
 }
 
-func IndexOfMax(v Interface) (max int) {
+func IndexOfMax(v Interface) (index int, ok bool) {
 	n := v.Len()
-	if n == 0 {
-		return -1
+	if n < 1 {
+		return 0, false
 	}
+	index = 0
 	for i := 1; i < n; i++ {
-		if v.Less(max, i) {
-			max = i
+		if v.Less(index, i) {
+			index = i
 		}
 	}
-	return
+	return index, true
 }
 
-func IndexOfMinMax(v Interface) (min, max int) {
+func IndexOfMinMax(v Interface) (indexMin, indexMax int, ok bool) {
 	n := v.Len()
-	if n == 0 {
-		return -1, -1
+	if n < 1 {
+		return 0, 0, false
 	}
+	indexMin, indexMax = 0, 0
 	for i := 1; i < n; i++ {
-		if v.Less(i, min) {
-			min = i
+		if v.Less(i, indexMin) {
+			indexMin = i
 		}
-		if v.Less(max, i) {
-			max = i
+		if v.Less(indexMax, i) {
+			indexMax = i
 		}
 	}
-	return
-}
-
-type IntSlice []int
-
-func (v IntSlice) Len() int           { return len(v) }
-func (v IntSlice) Less(i, j int) bool { return v[i] < v[j] }
-
-type StringSlice []string
-
-func (v StringSlice) Len() int           { return len(v) }
-func (v StringSlice) Less(i, j int) bool { return v[i] < v[j] }
-
-var (
-	_ Interface = IntSlice(nil)
-	_ Interface = StringSlice(nil)
-)
-
-func MinInt(vs ...int) int {
-	min := IndexOfMin(IntSlice(vs))
-	if min == -1 {
-		panic("minmax: MinInt has no parameters")
-	}
-	return vs[min]
-}
-
-func MaxInt(vs ...int) int {
-	max := IndexOfMax(IntSlice(vs))
-	if max == -1 {
-		panic("minmax: MaxInt has no parameters")
-	}
-	return vs[max]
+	return indexMin, indexMax, true
 }

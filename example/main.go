@@ -19,11 +19,15 @@ func exampleIntSlice() {
 
 	vs := minmax.IntSlice(ds)
 
-	min := minmax.IndexOfMin(vs)
-	fmt.Println("min:", vs[min])
+	min, ok := minmax.IndexOfMin(vs)
+	if ok {
+		fmt.Println("min:", vs[min])
+	}
 
-	max := minmax.IndexOfMax(vs)
-	fmt.Println("min:", vs[max])
+	max, ok := minmax.IndexOfMax(vs)
+	if ok {
+		fmt.Println("min:", vs[max])
+	}
 }
 
 func exampleInts() {
@@ -58,9 +62,13 @@ func exampleUseInterface() {
 		{name: "Stan", age: 25},
 		{name: "Jon", age: 12},
 	}
-	min := minmax.IndexOfMin(byAge(vs))
-	fmt.Println("min:", vs[min])
+	min, ok := minmax.IndexOfMin(byAge(vs))
+	if ok {
+		fmt.Println("min:", vs[min])
+	}
 
-	max := minmax.IndexOfMax(byAge(vs))
-	fmt.Println("max:", vs[max])
+	max, ok := minmax.IndexOfMax(byAge(vs))
+	if ok {
+		fmt.Println("max:", vs[max])
+	}
 }
