@@ -1,12 +1,6 @@
 package minmax
 
-import (
-	"errors"
-)
-
-var ErrNoParams = errors.New("minmax: there are no parameters")
-
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 type IntSlice []int
 
 func (v IntSlice) Len() int           { return len(v) }
@@ -14,23 +8,23 @@ func (v IntSlice) Less(i, j int) bool { return v[i] < v[j] }
 
 var _ Interface = IntSlice([]int{})
 
-func MinInt(vs ...int) int {
-	index, ok := IndexOfMin(IntSlice(vs))
-	if !ok {
-		panic(ErrNoParams)
+func MinInts(vs ...int) int {
+	if len(vs) == 0 {
+		return 0 // default value
 	}
-	return vs[index]
+	imin := IndexOfMin(IntSlice(vs))
+	return vs[imin]
 }
 
-func MaxInt(vs ...int) int {
-	index, ok := IndexOfMax(IntSlice(vs))
-	if !ok {
-		panic(ErrNoParams)
+func MaxInts(vs ...int) int {
+	if len(vs) == 0 {
+		return 0
 	}
-	return vs[index]
+	imax := IndexOfMax(IntSlice(vs))
+	return vs[imax]
 }
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 type Float64Slice []float64
 
 func (v Float64Slice) Len() int           { return len(v) }
@@ -38,23 +32,23 @@ func (v Float64Slice) Less(i, j int) bool { return v[i] < v[j] }
 
 var _ Interface = Float64Slice([]float64{})
 
-func MinFloat64(vs ...float64) float64 {
-	index, ok := IndexOfMin(Float64Slice(vs))
-	if !ok {
-		panic(ErrNoParams)
+func MinFloat64s(vs ...float64) float64 {
+	if len(vs) == 0 {
+		return 0
 	}
-	return vs[index]
+	imin := IndexOfMin(Float64Slice(vs))
+	return vs[imin]
 }
 
-func MaxFloat64(vs ...float64) float64 {
-	index, ok := IndexOfMax(Float64Slice(vs))
-	if !ok {
-		panic(ErrNoParams)
+func MaxFloat64s(vs ...float64) float64 {
+	if len(vs) == 0 {
+		return 0
 	}
-	return vs[index]
+	imax := IndexOfMax(Float64Slice(vs))
+	return vs[imax]
 }
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 type StringSlice []string
 
 func (v StringSlice) Len() int           { return len(v) }

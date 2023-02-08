@@ -7,10 +7,16 @@ import (
 )
 
 func main() {
+	exampleMax()
 	exampleIntSlice()
 	exampleInts()
 	exampleNoParameters()
 	exampleUseInterface()
+}
+
+func exampleMax() {
+	ds := []int{-47, -70, -13}
+	fmt.Println(minmax.MaxInts(ds...))
 }
 
 func exampleIntSlice() {
@@ -19,22 +25,18 @@ func exampleIntSlice() {
 
 	vs := minmax.IntSlice(ds)
 
-	min, ok := minmax.IndexOfMin(vs)
-	if ok {
-		fmt.Println("min:", vs[min])
-	}
+	imin := minmax.IndexOfMin(vs)
+	fmt.Println("min:", vs[imin])
 
-	max, ok := minmax.IndexOfMax(vs)
-	if ok {
-		fmt.Println("min:", vs[max])
-	}
+	imax := minmax.IndexOfMax(vs)
+	fmt.Println("min:", vs[imax])
 }
 
 func exampleInts() {
 	vs := []int{1, -2, 0, 7, -5, 3, -1}
 	fmt.Println("for slice:", vs)
-	fmt.Println("min:", minmax.MinInt(vs...))
-	fmt.Println("max:", minmax.MaxInt(vs...))
+	fmt.Println("min:", minmax.MinInts(vs...))
+	fmt.Println("max:", minmax.MaxInts(vs...))
 }
 
 func exampleNoParameters() {
@@ -43,7 +45,7 @@ func exampleNoParameters() {
 			fmt.Println("panic:", err)
 		}
 	}()
-	fmt.Println("min:", minmax.MinInt())
+	fmt.Println("min:", minmax.MinInts())
 }
 
 type person struct {
@@ -62,13 +64,9 @@ func exampleUseInterface() {
 		{name: "Stan", age: 25},
 		{name: "Jon", age: 12},
 	}
-	min, ok := minmax.IndexOfMin(byAge(vs))
-	if ok {
-		fmt.Println("min:", vs[min])
-	}
+	imin := minmax.IndexOfMin(byAge(vs))
+	fmt.Println("min:", vs[imin])
 
-	max, ok := minmax.IndexOfMax(byAge(vs))
-	if ok {
-		fmt.Println("max:", vs[max])
-	}
+	imax := minmax.IndexOfMax(byAge(vs))
+	fmt.Println("max:", vs[imax])
 }

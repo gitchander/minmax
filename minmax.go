@@ -12,47 +12,38 @@ type Interface interface {
 	Less(i, j int) bool
 }
 
-func IndexOfMin(v Interface) (index int, ok bool) {
+func IndexOfMin(v Interface) (imin int) {
+	imin = 0
 	n := v.Len()
-	if n < 1 {
-		return 0, false
-	}
-	index = 0
 	for i := 1; i < n; i++ {
-		if v.Less(i, index) {
-			index = i
+		if v.Less(i, imin) {
+			imin = i
 		}
 	}
-	return index, true
+	return imin
 }
 
-func IndexOfMax(v Interface) (index int, ok bool) {
+func IndexOfMax(v Interface) (imax int) {
+	imax = 0
 	n := v.Len()
-	if n < 1 {
-		return 0, false
-	}
-	index = 0
 	for i := 1; i < n; i++ {
-		if v.Less(index, i) {
-			index = i
+		if v.Less(imax, i) {
+			imax = i
 		}
 	}
-	return index, true
+	return imax
 }
 
-func IndexOfMinMax(v Interface) (indexMin, indexMax int, ok bool) {
+func IndexOfMinMax(v Interface) (imin, imax int) {
+	imin, imax = 0, 0
 	n := v.Len()
-	if n < 1 {
-		return 0, 0, false
-	}
-	indexMin, indexMax = 0, 0
 	for i := 1; i < n; i++ {
-		if v.Less(i, indexMin) {
-			indexMin = i
+		if v.Less(i, imin) {
+			imin = i
 		}
-		if v.Less(indexMax, i) {
-			indexMax = i
+		if v.Less(imax, i) {
+			imax = i
 		}
 	}
-	return indexMin, indexMax, true
+	return imin, imax
 }
